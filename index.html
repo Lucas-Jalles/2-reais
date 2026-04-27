@@ -161,12 +161,11 @@ button:hover {
 </div>
 
 <div class="modal" id="modal">
-    <div class="modal-box">
+    <div class="modal-box" id="modalContent">
         <h2 style="color:#ef4444;">PARABÉNS 😂</h2>
         <p>Você ganhou um novo <b>problema</b>!</p>
-        <p>CRM mas lento que o normal e geral reclamando</p>
         <br>
-        <button onclick="closeModal()">Aceitar destino</button>
+        <button onclick="nextStep()">Aceitar destino</button>
     </div>
 </div>
 
@@ -214,7 +213,16 @@ function launchConfetti() {
         setTimeout(() => el.remove(), 3000);
     }
 }
+function nextStep() {
+    const modalContent = document.getElementById("modalContent");
 
+    modalContent.innerHTML = `
+        <h2 style="color:#22c55e;">Agora lascou 😅</h2>
+        <p>Me procure para resolver isso 👀</p>
+        <br>
+        <button onclick="closeModal()">Fechar (com medo)</button>
+    `;
+}
 </script>
 
 </body>
