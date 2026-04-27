@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escolha do Chefe 😂</title>
+
+<style>
+:root {
+    --primary: #2563eb;
+    --danger: #dc2626;
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #f1f5f9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: radial-gradient(circle, #1e293b, #020617);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* CARD */
+.container {
+    background: var(--card);
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+}
+
+/* TITLE */
+h1 {
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+}
+
+/* BUTTONS */
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+button {
+    border: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-2 {
+    background: #334155;
+    color: white;
+    position: relative;
+}
+
+.btn-gift {
+    background: var(--primary);
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+/* GIFT */
+.gift {
+    font-size: 80px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.gift:hover {
+    transform: scale(1.2) rotate(10deg);
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    background: #111827;
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.5); }
+    100% { transform: scale(1); }
+}
+
+/* CONFETTI */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: red;
+    top: -10px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
+
+.hidden { display: none; }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div id="start">
+        <h1>💼 E aí chefe...<br>20 reais ou presente misterioso?</h1>
+        <div class="button-group">
+            <button class="btn-2" id="btn2">💸 20 Reais</button>
+            <button class="btn-gift" onclick="gift()">🎁 Presente</button>
+        </div>
+    </div>
+
+    <div id="giftArea" class="hidden">
+        <h2>Boa escolha, sabio como sempre 😂</h2>
+        <p>Clica no presente aí 👇</p>
+        <div class="gift" onclick="openGift()">🎁</div>
+    </div>
+</div>
+
+<div class="modal" id="modal">
+    <div class="modal-box">
+        <h2 style="color:#ef4444;">PARABÉNS 😂</h2>
+        <p>Você ganhou um novo <b>problema</b>!</p>
+        <p>CRM mas lento que o normal e geral reclamando</p>
+        <br>
+        <button onclick="closeModal()">Aceitar destino</button>
+    </div>
+</div>
+
+<script>
+
+/* BOTÃO FUGINDO */
+const btn = document.getElementById("btn2");
+
+btn.addEventListener("mouseover", () => {
+    const x = Math.random() * 200 - 100;
+    const y = Math.random() * 200 - 100;
+    btn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+/* ESCOLHA */
+function gift() {
+    document.getElementById("start").classList.add("hidden");
+    document.getElementById("giftArea").classList.remove("hidden");
+}
+
+/* ABRIR PRESENTE */
+function openGift() {
+    launchConfetti();
+    document.getElementById("modal").classList.add("active");
+
+    // som opcional
+     new Audio('https://www.myinstants.com/media/sounds/vine-boom.mp3').play();
+}
+
+/* FECHAR */
+function closeModal() {
+    document.getElementById("modal").classList.remove("active");
+}
+
+/* CONFETTI */
+function launchConfetti() {
+    for (let i = 0; i < 50; i++) {
+        const el = document.createElement("div");
+        el.classList.add("confetti");
+        el.style.left = Math.random() * 100 + "vw";
+        el.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        el.style.background = `hsl(${Math.random()*360},100%,50%)`;
+        document.body.appendChild(el);
+
+        setTimeout(() => el.remove(), 3000);
+    }
+}
+
+</script>
+
+</body>
+</html>
